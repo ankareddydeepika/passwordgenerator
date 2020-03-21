@@ -1,10 +1,21 @@
-// Assignment Code
+
 var generateBtn = document.querySelector("#generate");
 var selectedPasswordlength = 8;
-// Write password to the #password input
+var isUserSeletedLowerCase = false;
+var isUserSelectingUpperCase = false;
+var isUserslectingNumber = false;
+var isUserSelctingSpecial = false;
+var finalPassword = "";
+
 function writePassword() {
   lengthOfpassword();
   allChars();
+  randompasswordgenerator();
+
+  var passwordText = document.querySelector("#password");
+
+passwordText.value = finalPassword;
+finalPassword = ""
 
 }
 function lengthOfpassword() {
@@ -34,7 +45,7 @@ function lengthOfpassword() {
 function lowercaseChar() {
 
   var lc = confirm("Would you like a Lowercase letter in your password");
-
+  isUserSeletedLowerCase = lc;
   return lc;
 
 }
@@ -42,6 +53,7 @@ function lowercaseChar() {
 function uppercaseChar() {
 
   var uc = confirm("Would you like a Uppercase letter in your password");
+  isUserSelectingUpperCase = uc;
 
   return uc;
 }
@@ -50,12 +62,15 @@ function numeric() {
 
   var nu = confirm("Would you like a numeric letter in your password");
 
+  isUserslectingNumber = nu;
+
   return nu;
 }
 
 function specialChar() {
 
   var spC = confirm("Would you like a special Charecter in your password");
+  isUserSelctingSpecial = spC;
 
   return spC;
 
@@ -80,16 +95,43 @@ function allChars() {
   }
 }
 
+function randompasswordgenerator(){
+var lowercase = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+var uppercase = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+var numbers = ["0","1","2","3","4","5","6","7","8","9"];
+var special = ["!","#","$","%","&"];
+
+var allPasswordset = [];
 
 
+if(isUserSeletedLowerCase === true){
+   
+  allPasswordset = allPasswordset.concat(lowercase);
 
-// var password = generatePassword();
-// var passwordText = document.querySelector("#password");
+}
 
-// passwordText.value = password;
+if(isUserSelectingUpperCase === true){
 
+  allPasswordset = allPasswordset.concat(uppercase);
 
-// Add event listener to generate button
+}
+if(isUserslectingNumber === true){
+
+  allPasswordset = allPasswordset.concat(numbers);
+}
+if(isUserSelctingSpecial === true){
+
+  allPasswordset = allPasswordset.concat(special);
+}
+for(i=0; i<selectedPasswordlength; i++){
+ var l = Math.floor(Math.random()*allPasswordset.length); 
+ var j = allPasswordset[l];
+ finalPassword = finalPassword.concat(j);
+
+}
+
+}
+
 generateBtn.addEventListener("click", writePassword);
 
 
